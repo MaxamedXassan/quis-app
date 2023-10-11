@@ -1,6 +1,59 @@
+import { useState } from "react";
 import "./app.css"
+import Trivia from "./components/Trivia";
 
 function App() {
+
+  const [questionNumber, setQuestionNumber] = useState(1)
+  const [timeOut, setTimeOut] = useState(false)
+
+
+  const data = [
+    {
+      id: 1,
+      question: "Rolex a company spcializes in what type of product",
+      answers: [
+        {
+          text: "phone",
+          correct: false,
+        },
+        {
+          text: "watches",
+          correct: true,
+        },
+        {
+          text: "Food",
+          correct: false
+        },
+        {
+          text: "cosmetic",
+          correct: false
+        }
+      ]
+    },
+    {
+      id: 2,
+      question: "Goorme ayey somaliya xornimada qadatay",
+      answers: [
+        {
+          text: "1936",
+          correct: false
+        },
+        {
+          text: "1945",
+          correct: false
+        },
+        {
+          text: "1955",
+          correct: false
+        },
+        {
+          text: "1960",
+          correct: true
+        }
+      ]
+    }
+  ]
 
   const moneyPyramid = [
     {id:1, amount:"$ 100"},
@@ -18,15 +71,23 @@ function App() {
     {id:13, amount:"$ 250000"},
     {id:14, amount:"$ 500000"},
     {id:15, amount:"$ 1000000"},
-  ]
+  ].reverse();
 
   return (
     <div className="app">
-        <div className="main">main</div>
+        <div className="main">
+          <div className="top">
+            <div className="timer">30</div>
+          </div>
+          <div className="bottom">
+            <Trivia data={data} setTimeOut={setTimeOut} 
+            questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} />
+          </div>
+        </div>
         <div className="pyramid">
           <ul className="moneyList">
             { moneyPyramid.map((m) => (
-               <li className="moneyListItem">
+               <li className={questionNumber === m.id ? "moneyListItem active" : "moneyListItem"}>
                <span className="moneyLitItemNumber">{m.id}</span>
                <span className="moneyLitItemNumberAcount">{m.amount}</span>
              </li>
